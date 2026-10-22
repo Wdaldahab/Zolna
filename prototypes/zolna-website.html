@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>منصة زولنا — طفلك يتعلّم العربية بصوته</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS — Nile, Nubia & Moonlit Nights ============ */
+:root{
+  --nile:#0E3D63;
+  --nile-deep:#092B47;
+  --nile-band:#1A5E8F;
+  --sand:#F7F0DF;
+  --white:#FFFFFF;
+  --gold:#EAA640;
+  --gold-deep:#C9822A;
+  --green:#1F7B5B;
+  --clay:#C05A33;
+  --night:#141C33;
+  --night-2:#1D2947;
+  --star:#F2C879;
+  --ink:#13242F;
+  --ink-soft:#42586B;
+  --radius:22px;
+  --shadow:0 10px 30px rgba(9,43,71,.10);
+  --display:'Baloo Bhaijaan 2','Geeza Pro','Noto Kufi Arabic',system-ui,sans-serif;
+  --body:'Tajawal','Segoe UI','Noto Naskh Arabic',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);color:var(--ink);background:var(--sand);line-height:1.75;-webkit-font-smoothing:antialiased}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:var(--display);line-height:1.3}
+.wrap{max-width:1120px;margin-inline:auto;padding-inline:22px}
+
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:.85rem;letter-spacing:.02em;color:var(--gold-deep);margin-bottom:12px}
+.eyebrow::before{content:"";width:26px;height:3px;border-radius:2px;background:var(--gold)}
+
+.zigzag{height:16px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='16'%3E%3Cpath d='M0 16 L10 2 L20 16 Z' fill='%23EAA640'/%3E%3Cpath d='M20 16 L30 2 L40 16 Z' fill='%231F7B5B'/%3E%3Cpath d='M40 16 L50 2 L60 16 Z' fill='%23C05A33'/%3E%3C/svg%3E");background-repeat:repeat-x;background-size:60px 16px}
+
+/* ============ TOP BAR ============ */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(247,240,223,.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(19,36,47,.08)}
+.topbar .wrap{display:flex;align-items:center;gap:20px;height:66px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:1.5rem;color:var(--nile)}
+.logo .boat{width:34px;height:34px}
+nav.mainnav{display:flex;gap:20px;font-weight:500;color:var(--ink-soft);font-size:.93rem}
+nav.mainnav a:hover{color:var(--nile)}
+.topbar .grow{flex:1}
+.lang-btn{border:2px solid var(--nile);color:var(--nile);background:transparent;border-radius:999px;font-family:var(--body);font-weight:700;font-size:.85rem;padding:6px 14px;cursor:pointer;transition:.2s}
+.lang-btn:hover{background:var(--nile);color:var(--sand)}
+.btn{display:inline-block;border-radius:999px;font-weight:700;padding:12px 26px;font-size:1rem;transition:transform .15s ease,box-shadow .15s ease;border:none;cursor:pointer;font-family:var(--body)}
+.btn:focus-visible,.lang-btn:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.btn-gold{background:var(--gold);color:var(--nile-deep);box-shadow:0 6px 18px rgba(234,166,64,.4)}
+.btn-gold:hover{transform:translateY(-2px)}
+.btn-ghost{border:2px solid var(--sand);color:var(--sand);background:transparent}
+.btn-ghost:hover{background:rgba(247,240,223,.12)}
+.topbar .btn{padding:9px 20px;font-size:.9rem}
+
+/* ============ HERO — Meroë & the Nile ============ */
+.hero{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--nile-deep) 0%,var(--nile) 70%);color:var(--sand);padding:84px 0 0}
+.hero .wrap{position:relative;z-index:3;text-align:center;max-width:840px}
+.hero .eyebrow{color:var(--gold)}
+.hero h1{font-size:clamp(2.05rem,5.6vw,3.5rem);font-weight:800;margin-bottom:18px}
+.hero h1 .ya{color:var(--gold)}
+.hero p.lead{font-size:clamp(1.02rem,2.2vw,1.22rem);color:rgba(247,240,223,.87);max-width:680px;margin:0 auto 28px}
+.hero .ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:22px}
+.chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
+.chip{display:inline-flex;align-items:center;gap:7px;background:rgba(247,240,223,.1);border:1px solid rgba(247,240,223,.25);border-radius:999px;padding:6px 15px;font-size:.83rem;font-weight:500}
+.chip svg{width:14px;height:14px;flex:none}
+.float-letter{position:absolute;font-family:var(--display);font-weight:800;color:rgba(247,240,223,.07);user-select:none;pointer-events:none;z-index:1}
+.fl1{font-size:9rem;top:6%;inset-inline-start:4%}
+.fl2{font-size:7rem;top:14%;inset-inline-end:7%}
+.fl3{font-size:6rem;top:50%;inset-inline-start:12%}
+.fl4{font-size:8rem;top:42%;inset-inline-end:3%}
+
+.river{position:relative;height:210px;margin-top:30px}
+.pyramids{position:absolute;bottom:58px;left:0;width:100%;height:120px;z-index:1;opacity:.85}
+.river svg.waves{position:absolute;bottom:0;left:0;width:100%;height:100%;z-index:2}
+.felucca{position:absolute;bottom:100px;left:50%;width:118px;height:118px;transform:translateX(-50%);z-index:3;animation:bob 5s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0) rotate(-1.2deg)}50%{transform:translateX(-50%) translateY(-9px) rotate(1.4deg)}}
+@media (prefers-reduced-motion:reduce){
+  .felucca{animation:none}
+  html{scroll-behavior:auto}
+  .reveal{opacity:1!important;transform:none!important;transition:none!important}
+}
+
+/* ============ SECTIONS ============ */
+section{padding:78px 0}
+.sec-head{text-align:center;max-width:680px;margin:0 auto 46px}
+.sec-head h2{font-size:clamp(1.7rem,4vw,2.4rem);font-weight:800;color:var(--nile);margin-bottom:10px}
+.sec-head p{color:var(--ink-soft)}
+
+/* worlds */
+.worlds{background:var(--sand)}
+.world-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+.world{background:var(--white);border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow);transition:transform .2s ease}
+.world:hover{transform:translateY(-5px)}
+.world .icon{width:54px;height:54px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:1.5rem;margin-bottom:16px;color:var(--white)}
+.i-gold{background:var(--gold)} .i-green{background:var(--green)}
+.i-nile{background:var(--nile-band)} .i-clay{background:var(--clay)}
+.world h3{font-size:1.15rem;color:var(--nile);margin-bottom:6px}
+.world p{font-size:.93rem;color:var(--ink-soft)}
+.world .tag{display:inline-block;margin-top:12px;font-size:.72rem;font-weight:700;color:var(--green);background:rgba(31,123,91,.1);border-radius:999px;padding:3px 11px}
+.world .tag.gold{color:var(--gold-deep);background:rgba(234,166,64,.14)}
+
+/* ============ مسار الدروس ============ */
+.path{background:var(--white);position:relative}
+.path-track{position:relative;margin-top:56px}
+.path-line{position:absolute;top:26px;left:0;width:100%;height:60px;z-index:0}
+.stops{position:relative;z-index:1;display:flex;gap:14px;align-items:flex-start;justify-content:space-between}
+.stop{flex:1;min-width:0;text-align:center;padding:0 4px}
+.stop .num{width:56px;height:56px;border-radius:50%;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:1.35rem;color:var(--white);border:4px solid var(--sand);box-shadow:var(--shadow)}
+.s-gold .num{background:var(--gold)} .s-green .num{background:var(--green)}
+.s-nile .num{background:var(--nile-band)} .s-clay .num{background:var(--clay)}
+.stop h3{font-size:.98rem;color:var(--nile);margin-bottom:3px}
+.stop .kw{font-family:var(--display);font-weight:700;font-size:.9rem;color:var(--gold-deep);margin-bottom:4px}
+.stop p{font-size:.8rem;color:var(--ink-soft);line-height:1.55}
+.path-ends{display:flex;justify-content:space-between;align-items:center;margin-top:34px;color:var(--ink-soft);font-size:.82rem;font-weight:700}
+.path-ends .end{display:flex;align-items:center;gap:8px}
+.path-ends svg{width:34px;height:34px}
+.path-note{text-align:center;margin-top:26px;font-size:.9rem;color:var(--ink-soft)}
+
+/* ============ APP SHOWCASE ============ */
+.appshow{background:var(--sand)}
+.appshow .cols{display:flex;align-items:center;gap:56px;flex-wrap:wrap}
+.appshow .txt{flex:1;min-width:290px}
+.appshow .txt h2{font-size:clamp(1.7rem,4vw,2.3rem);font-weight:800;color:var(--nile);margin-bottom:22px}
+.feat{display:flex;gap:15px;margin-bottom:20px}
+.feat .dot{flex:none;width:42px;height:42px;border-radius:13px;background:var(--white);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center}
+.feat .dot svg{width:21px;height:21px}
+.feat h3{font-size:1.03rem;color:var(--nile);margin-bottom:2px}
+.feat p{font-size:.9rem;color:var(--ink-soft)}
+.phone-wrap{flex:1;min-width:270px;display:flex;justify-content:center}
+.phone{width:265px;height:540px;border-radius:42px;background:var(--nile-deep);padding:12px;box-shadow:0 28px 60px rgba(9,43,71,.3);position:relative}
+.phone::before{content:"";position:absolute;top:22px;left:50%;transform:translateX(-50%);width:82px;height:9px;border-radius:5px;background:rgba(247,240,223,.15)}
+.screen{width:100%;height:100%;border-radius:32px;overflow:hidden;background:linear-gradient(180deg,#EAF3FA 0%,var(--sand) 100%);display:flex;flex-direction:column;align-items:center;padding:44px 18px 22px;text-align:center}
+.screen .lesson-label{font-size:.72rem;font-weight:700;color:var(--green);letter-spacing:.03em}
+.screen .big-letter{font-family:var(--display);font-weight:800;font-size:6.2rem;line-height:1;color:var(--nile);margin:12px 0 4px}
+.screen .word{font-family:var(--display);font-weight:700;font-size:1.35rem;color:var(--gold-deep);margin-bottom:14px}
+.stars{display:flex;gap:7px;justify-content:center;margin-bottom:auto}
+.stars svg{width:24px;height:24px}
+.mic-btn{width:88px;height:88px;border-radius:50%;background:var(--gold);border:6px solid rgba(234,166,64,.28);display:flex;align-items:center;justify-content:center;margin-bottom:10px;box-shadow:0 10px 24px rgba(234,166,64,.45)}
+.mic-btn svg{width:36px;height:36px}
+.screen .hint{font-size:.76rem;color:var(--ink-soft);font-weight:500}
+
+/* ============ SEERAH NIGHTS ============ */
+.wanasa{
+  background:
+    radial-gradient(2px 2px at 12% 18%, var(--star) 50%, transparent 51%),
+    radial-gradient(2px 2px at 28% 8%, rgba(242,200,121,.8) 50%, transparent 51%),
+    radial-gradient(2px 2px at 44% 22%, var(--star) 50%, transparent 51%),
+    radial-gradient(3px 3px at 62% 10%, rgba(242,200,121,.9) 50%, transparent 51%),
+    radial-gradient(2px 2px at 76% 20%, var(--star) 50%, transparent 51%),
+    radial-gradient(2px 2px at 88% 9%, rgba(242,200,121,.75) 50%, transparent 51%),
+    radial-gradient(2px 2px at 8% 60%, rgba(242,200,121,.4) 50%, transparent 51%),
+    radial-gradient(2px 2px at 93% 55%, rgba(242,200,121,.4) 50%, transparent 51%),
+    linear-gradient(180deg,var(--night) 0%, var(--night-2) 100%);
+  color:var(--sand);position:relative;overflow:hidden;
+}
+.wanasa .crescent{position:absolute;top:44px;inset-inline-end:8%;width:74px;height:74px;opacity:.95}
+.wanasa .sec-head h2{color:var(--sand)}
+.wanasa .sec-head p{color:rgba(247,240,223,.75)}
+.wanasa .eyebrow{color:var(--star)}
+.w-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.w-card{background:rgba(247,240,223,.06);border:1px solid rgba(242,200,121,.22);border-radius:var(--radius);padding:26px 24px}
+.w-card .picon{width:44px;height:44px;border-radius:13px;background:rgba(242,200,121,.14);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.w-card .picon svg{width:22px;height:22px}
+.w-card h3{font-size:1.1rem;margin-bottom:6px;color:var(--star)}
+.w-card p{font-size:.9rem;color:rgba(247,240,223,.78);margin-bottom:12px}
+.w-card .echo{font-size:.8rem;font-weight:700;color:rgba(247,240,223,.65);background:rgba(20,28,51,.5);border:1px dashed rgba(242,200,121,.35);border-radius:12px;padding:7px 12px;display:inline-block}
+
+/* ============ ركن السودان ============ */
+.sudan{background:var(--white)}
+.s-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;max-width:980px;margin-inline:auto}
+.s-card{background:var(--sand);border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.s-card::before{content:"";position:absolute;top:0;left:0;right:0;height:8px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='8'%3E%3Cpath d='M0 8 L5.5 1 L11 8 Z' fill='%23EAA640'/%3E%3Cpath d='M11 8 L16.5 1 L22 8 Z' fill='%231F7B5B'/%3E%3Cpath d='M22 8 L27.5 1 L33 8 Z' fill='%23C05A33'/%3E%3C/svg%3E");background-repeat:repeat-x;background-size:32px 8px}
+.s-card .kind{display:inline-block;font-size:.72rem;font-weight:800;color:var(--green);background:rgba(31,123,91,.1);border-radius:999px;padding:3px 12px;margin-bottom:14px}
+.s-card .big-word{font-family:var(--display);font-weight:800;font-size:2rem;color:var(--nile);line-height:1.35;margin-bottom:6px}
+.s-card .meaning{font-size:.92rem;color:var(--ink-soft)}
+.s-card .meaning b{color:var(--gold-deep)}
+
+/* ============ PARENTS ============ */
+.parents{background:var(--nile);color:var(--sand)}
+.parents .sec-head h2{color:var(--sand)}
+.parents .sec-head p{color:rgba(247,240,223,.75)}
+.parents .eyebrow{color:var(--gold)}
+.p-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.p-card{background:rgba(247,240,223,.07);border:1px solid rgba(247,240,223,.16);border-radius:var(--radius);padding:26px 24px}
+.p-card .picon{width:40px;height:40px;border-radius:12px;background:rgba(234,166,64,.18);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.p-card .picon svg{width:20px;height:20px}
+.p-card h3{font-size:1.08rem;margin-bottom:6px;color:var(--sand)}
+.p-card p{font-size:.9rem;color:rgba(247,240,223,.72)}
+
+/* ============ CLUB ============ */
+.club{background:var(--sand)}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:22px;align-items:stretch;max-width:960px;margin-inline:auto}
+.plan{background:var(--white);border-radius:var(--radius);padding:32px 28px;box-shadow:var(--shadow);display:flex;flex-direction:column;position:relative;overflow:hidden}
+.plan.hot{border:3px solid var(--gold);transform:scale(1.03)}
+.plan.hot::before{content:"";position:absolute;top:0;left:0;right:0;height:10px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='10'%3E%3Cpath d='M0 10 L7 1 L14 10 Z' fill='%23EAA640'/%3E%3Cpath d='M14 10 L21 1 L28 10 Z' fill='%231F7B5B'/%3E%3Cpath d='M28 10 L35 1 L42 10 Z' fill='%23C05A33'/%3E%3C/svg%3E");background-repeat:repeat-x;background-size:40px 10px}
+.plan .badge{position:absolute;top:16px;inset-inline-end:16px;background:var(--gold);color:var(--nile-deep);font-size:.68rem;font-weight:800;border-radius:999px;padding:3px 11px}
+.plan h3{font-size:1.2rem;color:var(--nile);margin-bottom:4px}
+.plan .price{font-family:var(--display);font-weight:800;font-size:2rem;color:var(--nile);margin-bottom:2px}
+.plan .per{font-size:.8rem;color:var(--ink-soft);margin-bottom:18px}
+.plan ul{list-style:none;margin-bottom:24px;flex:1}
+.plan li{font-size:.9rem;color:var(--ink-soft);padding:7px 0;display:flex;align-items:flex-start;gap:9px}
+.plan li svg{width:16px;height:16px;flex:none;margin-top:4px}
+.plan .btn{text-align:center}
+.plan .btn-line{border:2px solid var(--nile);color:var(--nile);background:transparent}
+.plan .btn-line:hover{background:var(--nile);color:var(--sand)}
+.pricing-note{text-align:center;font-size:.8rem;color:var(--ink-soft);margin-top:20px}
+
+/* ============ SHOP ============ */
+.shop{background:var(--white)}
+.shop .cols{display:flex;align-items:center;gap:46px;flex-wrap:wrap}
+.shop .txt{flex:1.2;min-width:280px}
+.shop .txt h2{font-size:clamp(1.6rem,4vw,2.1rem);font-weight:800;color:var(--nile);margin-bottom:12px}
+.shop .txt p{color:var(--ink-soft);margin-bottom:22px}
+.card-stack{flex:1;min-width:250px;display:flex;justify-content:center;position:relative;height:230px}
+.fcard{position:absolute;width:160px;height:210px;border-radius:18px;background:var(--sand);box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-family:var(--display);font-weight:800;border:3px solid var(--white)}
+.fcard .g{font-size:4rem;line-height:1;color:var(--nile)}
+.fcard .w{font-size:1rem;color:var(--gold-deep)}
+.fc1{transform:rotate(-8deg) translateX(52px);background:#FDEBD3}
+.fc2{transform:rotate(0deg);z-index:2}
+.fc3{transform:rotate(8deg) translateX(-52px);background:#E3F0EA}
+[dir="ltr"] .fc1{transform:rotate(-8deg) translateX(-52px)}
+[dir="ltr"] .fc3{transform:rotate(8deg) translateX(52px)}
+.soon{display:inline-block;background:rgba(31,123,91,.1);color:var(--green);font-weight:700;font-size:.78rem;border-radius:999px;padding:4px 14px;margin-bottom:12px}
+
+/* ============ FOOTER ============ */
+footer{background:var(--nile-deep);color:rgba(247,240,223,.75);padding:52px 0 34px}
+footer .cols{display:flex;gap:40px;flex-wrap:wrap;justify-content:space-between;margin-bottom:34px}
+footer .logo{color:var(--sand);margin-bottom:8px}
+footer p{font-size:.87rem;max-width:300px}
+footer h4{color:var(--sand);font-size:.95rem;margin-bottom:12px;font-family:var(--display)}
+footer ul{list-style:none}
+footer li{margin-bottom:8px;font-size:.87rem}
+footer a:hover{color:var(--gold)}
+.copyline{border-top:1px solid rgba(247,240,223,.14);padding-top:20px;font-size:.78rem;text-align:center}
+
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+
+@media (max-width:820px){
+  .stops{flex-direction:column;gap:26px;align-items:stretch}
+  .stop{display:flex;text-align:start;gap:16px;align-items:flex-start}
+  .stop .num{margin:0;flex:none;width:50px;height:50px;font-size:1.2rem}
+  .path-line{display:none}
+  .path-track{margin-top:36px;padding-inline-start:6px;border-inline-start:4px dashed rgba(26,94,143,.35)}
+  .path-ends{margin-top:26px}
+}
+@media (max-width:760px){
+  nav.mainnav{display:none}
+  section{padding:58px 0}
+  .plan.hot{transform:none}
+  .hero{padding-top:56px}
+  .river{height:170px}
+  .felucca{bottom:84px;width:94px;height:94px}
+  .pyramids{bottom:52px;height:90px}
+  .wanasa .crescent{width:54px;height:54px;top:26px}
+}
+</style>
+</head>
+<body>
+<aside role="note" style="padding:18px 24px;background:#fff3cd;color:#382900;border-bottom:2px solid #986c00;text-align:center;font-family:system-ui,sans-serif;line-height:1.6">
+<strong lang="ar" dir="rtl">نموذج تصوّري قيد التطوير — صفحة تعريفية فقط. التسجيل الصوتي وتقييم النطق والدروس التفاعلية والدفع والعمل دون اتصال ليست متاحة هنا. الأسعار افتراضية والامتثال القانوني غير مُثبت.</strong><br>
+<span lang="en" dir="ltr">Concept prototype only. Voice recording, pronunciation assessment, interactive lessons, payments, and offline support are not implemented. Prices are illustrative; legal compliance has not been established.</span>
+</aside>
+
+
+<!-- ============ TOP BAR ============ -->
+<header class="topbar">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Zolna">
+      <svg class="boat" viewBox="0 0 40 40" aria-hidden="true">
+        <path d="M20 3 L20 24" stroke="#0E3D63" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M20 4 Q33 12 21 23 Z" fill="#EAA640"/>
+        <path d="M7 26 H33 L28 33 H12 Z" fill="#0E3D63"/>
+        <path d="M5 36 Q12 33 20 36 T35 36" stroke="#1F7B5B" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      </svg>
+      <span>زولنا</span>
+    </a>
+    <nav class="mainnav">
+      <a href="#worlds" data-ar="العوالم" data-en="Worlds">العوالم</a>
+      <a href="#path" data-ar="مسار الدروس" data-en="Lesson path">مسار الدروس</a>
+      <a href="#seerah" data-ar="السيرة" data-en="Seerah">السيرة</a>
+      <a href="#sudan" data-ar="ركن السودان" data-en="Sudan corner">ركن السودان</a>
+      <a href="#parents" data-ar="للأهل" data-en="For parents">للأهل</a>
+      <a href="#club" data-ar="نادي زولنا" data-en="Zolna Club">نادي زولنا</a>
+    </nav>
+    <div class="grow"></div>
+    <button class="lang-btn" id="langToggle" aria-label="Switch language">EN</button>
+    <a href="#app" class="btn btn-gold" data-ar="جرّب زولنا" data-en="Try Zolna">جرّب زولنا</a>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<div class="hero" id="top">
+  <span class="float-letter fl1" aria-hidden="true">ب</span>
+  <span class="float-letter fl2" aria-hidden="true">ن</span>
+  <span class="float-letter fl3" aria-hidden="true">م</span>
+  <span class="float-letter fl4" aria-hidden="true">أ</span>
+
+  <div class="wrap">
+    <span class="eyebrow" data-ar="منصة زولنا التعليمية لأطفالنا — عربية، وقرآن، وسيرة النبي ﷺ" data-en="Zolna — an educational platform for our children: Arabic, Quran &amp; the Prophet&#8217;s ﷺ Seerah">منصة زولنا التعليمية لأطفالنا — عربية، وقرآن، وسيرة النبي ﷺ</span>
+    <h1><span class="ya" data-ar="«زولنا»…" data-en="Zolna…">«زولنا»…</span> <span data-ar="حيث يتعلّم طفلك العربية بصوته" data-en="where your child learns Arabic out loud">حيث يتعلّم طفلك العربية بصوته</span></h1>
+    <p class="lead" data-ar="حروف وأصوات، وسور قصيرة، وسيرة النبي ﷺ، ولهجة السودان وثقافته — يسجّل طفلك صوته ويسمع التقييم فورًا. كل شيء يعمل دون إنترنت، دون إعلانات، وبتحكّم كامل للأهل." data-en="Phonics, short surahs, the Prophet&#8217;s ﷺ Seerah, and Sudan&#8217;s dialect and culture — your child records their voice and hears instant feedback. Everything works offline, with no ads, and full parental control.">حروف وأصوات، وسور قصيرة، وسيرة النبي ﷺ، ولهجة السودان وثقافته — يسجّل طفلك صوته ويسمع التقييم فورًا. كل شيء يعمل دون إنترنت، دون إعلانات، وبتحكّم كامل للأهل.</p>
+
+    <div class="ctas">
+      <a href="#app" class="btn btn-gold" data-ar="جرّبه الآن في المتصفح" data-en="Try it now in your browser">جرّبه الآن في المتصفح</a>
+      <a href="#club" class="btn btn-ghost" data-ar="اكتشف نادي زولنا" data-en="Discover Zolna Club">اكتشف نادي زولنا</a>
+    </div>
+
+    <div class="chips">
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="#EAA640" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg><span data-ar="بدون إعلانات" data-en="No ads">بدون إعلانات</span></span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="#EAA640" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg><span data-ar="يعمل دون إنترنت" data-en="Works offline">يعمل دون إنترنت</span></span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="#EAA640" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg><span data-ar="الخصوصية هدف تصميمي" data-en="Child-safe — COPPA">الخصوصية هدف تصميمي</span></span>
+    </div>
+  </div>
+
+  <div class="river" aria-hidden="true">
+    <svg class="pyramids" viewBox="0 0 1440 120" preserveAspectRatio="none">
+      <path d="M120 120 L175 18 L230 120 Z" fill="#071F33"/>
+      <path d="M225 120 L268 48 L311 120 Z" fill="#0A2A44"/>
+      <path d="M1160 120 L1215 26 L1270 120 Z" fill="#071F33"/>
+      <path d="M1258 120 L1298 56 L1338 120 Z" fill="#0A2A44"/>
+      <path d="M1075 120 L1112 62 L1149 120 Z" fill="#0A2A44"/>
+    </svg>
+    <div class="felucca">
+      <svg viewBox="0 0 120 120">
+        <path d="M58 8 L58 74" stroke="#F7F0DF" stroke-width="4" stroke-linecap="round"/>
+        <path d="M58 10 Q104 38 60 72 Z" fill="#EAA640"/>
+        <text x="78" y="52" font-family="'Baloo Bhaijaan 2',sans-serif" font-size="26" font-weight="800" fill="#0E3D63" text-anchor="middle">ز</text>
+        <path d="M22 80 H98 L84 100 H36 Z" fill="#F7F0DF"/>
+        <path d="M22 80 H98 L84 100 H36 Z" fill="none" stroke="#EAA640" stroke-width="3"/>
+      </svg>
+    </div>
+    <svg class="waves" viewBox="0 0 1440 190" preserveAspectRatio="none">
+      <path d="M0,120 C240,90 480,150 720,120 C960,90 1200,150 1440,120 L1440,190 L0,190 Z" fill="#1A5E8F" opacity=".55"/>
+      <path d="M0,145 C260,115 520,175 780,145 C1040,115 1260,170 1440,145 L1440,190 L0,190 Z" fill="#145179" opacity=".8"/>
+      <path d="M0,168 C300,145 620,190 900,166 C1140,146 1300,182 1440,168 L1440,190 L0,190 Z" fill="#F7F0DF"/>
+    </svg>
+  </div>
+</div>
+
+<div class="zigzag" aria-hidden="true"></div>
+
+<!-- ============ WORLDS ============ -->
+<section class="worlds" id="worlds">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow" data-ar="عوالم زولنا" data-en="Zolna worlds">عوالم زولنا</span>
+      <h2 data-ar="ماذا يتعلّم طفلك؟" data-en="What does your child learn?">ماذا يتعلّم طفلك؟</h2>
+      <p data-ar="أربعة عوالم تكبر مع طفلك — دروس قصيرة، ولعب، وصوت." data-en="Four worlds that grow with your child — short lessons, play, and voice.">أربعة عوالم تكبر مع طفلك — دروس قصيرة، ولعب، وصوت.</p>
+    </div>
+    <div class="world-grid">
+      <div class="world reveal">
+        <div class="icon i-nile">أ</div>
+        <h3 data-ar="الحروف والأصوات" data-en="Letters &amp; sounds">الحروف والأصوات</h3>
+        <p data-ar="ينطق طفلك الحرف، ويسجّل صوته، ويسمع التقييم فورًا — أ كما في «الله»، وب كما في «بسم»." data-en="Your child says the letter, records their voice, and hears instant feedback — Alif as in &#8220;Allah&#8221;, Ba as in &#8220;Bism&#8221;.">ينطق طفلك الحرف، ويسجّل صوته، ويسمع التقييم فورًا — أ كما في «الله»، وب كما في «بسم».</p>
+      </div>
+      <div class="world reveal">
+        <div class="icon i-green">۞</div>
+        <h3 data-ar="القرآن الكريم" data-en="The Holy Quran">القرآن الكريم</h3>
+        <p data-ar="استماع وترديد بتدرّج: من «بسم الله الرحمن الرحيم» إلى سورة الفاتحة — دون ضغط ولا استعجال." data-en="Gradual listening and repetition: from Bismillah to Surat Al-Fatiha — no pressure, no rush.">استماع وترديد بتدرّج: من «بسم الله الرحمن الرحيم» إلى سورة الفاتحة — دون ضغط ولا استعجال.</p>
+      </div>
+      <div class="world reveal">
+        <div class="icon i-gold">ﷺ</div>
+        <h3 data-ar="سيرة النبي ﷺ" data-en="The Prophet&#8217;s ﷺ Seerah">سيرة النبي ﷺ</h3>
+        <p data-ar="قصص قصيرة من حياة النبي ﷺ: الصادق الأمين، والرحمة، ومساعدة الناس — أخلاق ترافق طفلك مدى الحياة." data-en="Short stories from the Prophet&#8217;s ﷺ life: honesty, mercy, and helping others — values that stay with your child for life.">قصص قصيرة من حياة النبي ﷺ: الصادق الأمين، والرحمة، ومساعدة الناس — أخلاق ترافق طفلك مدى الحياة.</p>
+        <span class="tag gold" data-ar="محور أساسي" data-en="A core focus">محور أساسي</span>
+      </div>
+      <div class="world reveal">
+        <div class="icon i-clay">✦</div>
+        <h3 data-ar="اللهجة والثقافة السودانية" data-en="Sudanese dialect &amp; culture">اللهجة والثقافة السودانية</h3>
+        <p data-ar="هنا اللهجة السودانية مادة يتعلّمها طفلك: كلمات، وأمثال، وحكايات، وعادات وآداب أصيلة — ليفهم جذوره ويعتزّ بها." data-en="Here the Sudanese dialect is a subject your child learns: words, proverbs, tales, and authentic customs and manners — to understand their roots and take pride in them.">هنا اللهجة السودانية مادة يتعلّمها طفلك: كلمات، وأمثال، وحكايات، وعادات وآداب أصيلة — ليفهم جذوره ويعتزّ بها.</p>
+        <span class="tag" data-ar="حصريًا في زولنا" data-en="Only in Zolna">حصريًا في زولنا</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ مسار الدروس ============ -->
+<section class="path" id="path">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow" data-ar="مسار الدروس" data-en="The lesson path">مسار الدروس</span>
+      <h2 data-ar="الوحدة الأولى: من الألف إلى الفاتحة" data-en="Unit one: from Alif to Al-Fatiha">الوحدة الأولى: من الألف إلى الفاتحة</h2>
+      <p data-ar="ستة دروس، مدة كل درس ٢٠–٣٠ دقيقة — مسار واحد واضح، وكل درس يفتح الذي يليه." data-en="Six lessons, 20–30 minutes each — one clear path, each lesson unlocks the next.">ستة دروس، مدة كل درس ٢٠–٣٠ دقيقة — مسار واحد واضح، وكل درس يفتح الذي يليه.</p>
+    </div>
+
+    <div class="path-track reveal">
+      <svg class="path-line" viewBox="0 0 1100 60" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,30 C110,4 220,56 330,30 C440,4 550,56 660,30 C770,4 880,56 990,30 C1045,17 1080,26 1100,30" fill="none" stroke="#1A5E8F" stroke-width="4" stroke-dasharray="10 10" opacity=".45" stroke-linecap="round"/>
+      </svg>
+      <div class="stops">
+        <div class="stop s-nile">
+          <div class="num">١</div>
+          <div>
+            <h3 data-ar="حرف الألف" data-en="The letter Alif">حرف الألف</h3>
+            <div class="kw">«الله»</div>
+            <p data-ar="أول الحروف، وأعظم الكلمات." data-en="The first letter, the greatest word.">أول الحروف، وأعظم الكلمات.</p>
+          </div>
+        </div>
+        <div class="stop s-gold">
+          <div class="num">٢</div>
+          <div>
+            <h3 data-ar="حرف الباء" data-en="The letter Ba">حرف الباء</h3>
+            <div class="kw">«بسم الله»</div>
+            <p data-ar="ماذا نقول قبل الأكل؟" data-en="What do we say before eating?">ماذا نقول قبل الأكل؟</p>
+          </div>
+        </div>
+        <div class="stop s-green">
+          <div class="num">٣</div>
+          <div>
+            <h3 data-ar="حرف الميم" data-en="The letter Meem">حرف الميم</h3>
+            <div class="kw">«محمد ﷺ»</div>
+            <p data-ar="نبيّنا الحبيب ﷺ." data-en="Our beloved Prophet ﷺ.">نبيّنا الحبيب ﷺ.</p>
+          </div>
+        </div>
+        <div class="stop s-clay">
+          <div class="num">٤</div>
+          <div>
+            <h3 data-ar="الصدق" data-en="Honesty">الصدق</h3>
+            <div class="kw" data-ar="الصادق الأمين" data-en="As-Sadiq Al-Amin">الصادق الأمين</div>
+            <p data-ar="إذا أخطأت؟ قل الحقيقة." data-en="Made a mistake? Tell the truth.">إذا أخطأت؟ قل الحقيقة.</p>
+          </div>
+        </div>
+        <div class="stop s-nile">
+          <div class="num">٥</div>
+          <div>
+            <h3 data-ar="سورة الفاتحة" data-en="Surat Al-Fatiha">سورة الفاتحة</h3>
+            <div class="kw" data-ar="نستمع ونردد" data-en="Listen &amp; repeat">نستمع ونردد</div>
+            <p data-ar="سورة عظيمة نقرؤها في الصلاة." data-en="A great surah we recite in prayer.">سورة عظيمة نقرؤها في الصلاة.</p>
+          </div>
+        </div>
+        <div class="stop s-gold">
+          <div class="num">٦</div>
+          <div>
+            <h3 data-ar="مراجعة ولعب" data-en="Review &amp; play">مراجعة ولعب</h3>
+            <div class="kw" data-ar="صِل الحرف بالكلمة" data-en="Match letter to word">صِل الحرف بالكلمة</div>
+            <p data-ar="أ مع «الله»، وب مع «بسم»، وم مع «محمد»." data-en="Alif with Allah, Ba with Bism, Meem with Muhammad.">أ مع «الله»، وب مع «بسم»، وم مع «محمد».</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="path-ends" aria-hidden="true">
+        <span class="end">
+          <svg viewBox="0 0 40 40"><path d="M6 34 L17 8 L28 34 Z" fill="#0E3D63"/><path d="M24 34 L31 18 L38 34 Z" fill="#1A5E8F"/></svg>
+          <span data-ar="البداية" data-en="Start">البداية</span>
+        </span>
+        <span class="end">
+          <span data-ar="ما شاء الله!" data-en="Mashallah!">ما شاء الله!</span>
+          <svg viewBox="0 0 40 40"><circle cx="22" cy="20" r="13" fill="#EAA640"/><circle cx="27" cy="18" r="12" fill="#F7F0DF"/></svg>
+        </span>
+      </div>
+    </div>
+
+    <p class="path-note reveal" data-ar="هذه الوحدة من منهج زولنا: العربية الفصحى أساس التعليم، وتُستخدم اللهجة السودانية داخل الدروس لتقريب المعنى عند الحاجة — كما يتعلّم طفلك اللهجة نفسها في عالمها المخصص." data-en="This unit is from Zolna&#8217;s own curriculum: Fusha Arabic is the foundation, with Sudanese dialect used inside lessons to clarify meaning when helpful — and your child learns the dialect itself in its dedicated world.">هذه الوحدة من منهج زولنا: العربية الفصحى أساس التعليم، وتُستخدم اللهجة السودانية داخل الدروس لتقريب المعنى عند الحاجة — كما يتعلّم طفلك اللهجة نفسها في عالمها المخصص.</p>
+  </div>
+</section>
+
+<!-- ============ APP SHOWCASE ============ -->
+<section class="appshow" id="app">
+  <div class="wrap">
+    <div class="cols">
+      <div class="txt reveal">
+        <span class="eyebrow" data-ar="تطبيق زولنا" data-en="The Zolna app">تطبيق زولنا</span>
+        <h2 data-ar="درس صغير، وصوت كبير" data-en="A small lesson, a big voice">درس صغير، وصوت كبير</h2>
+
+        <div class="feat">
+          <div class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="#C9822A" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 19v3"/></svg></div>
+          <div>
+            <h3 data-ar="اضغط وتكلّم" data-en="Press &amp; speak">اضغط وتكلّم</h3>
+            <p data-ar="زر واحد كبير للتسجيل، ومؤشر واضح كلما كان الميكروفون يعمل." data-en="One big record button, with a clear indicator whenever the mic is on.">زر واحد كبير للتسجيل، ومؤشر واضح كلما كان الميكروفون يعمل.</p>
+          </div>
+        </div>
+        <div class="feat">
+          <div class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="#1F7B5B" stroke-width="2"><path d="M12 3v10m0 0l-4-4m4 4l4-4M4 17c2.5 2 5.3 3 8 3s5.5-1 8-3"/></svg></div>
+          <div>
+            <h3 data-ar="يعمل دون إنترنت" data-en="Works offline">يعمل دون إنترنت</h3>
+            <p data-ar="الدروس والتقدّم محفوظة على الجهاز نفسه، وتتزامن تلقائيًا عند عودة الاتصال." data-en="Lessons and progress live on the device itself, and sync automatically when connection returns.">الدروس والتقدّم محفوظة على الجهاز نفسه، وتتزامن تلقائيًا عند عودة الاتصال.</p>
+          </div>
+        </div>
+        <div class="feat">
+          <div class="dot"><svg viewBox="0 0 24 24" fill="#EAA640" stroke="#C9822A" stroke-width="1.4"><path d="M12 2l2.9 6.3 6.6.7-4.9 4.6 1.3 6.5L12 16.9 6.1 20.1l1.3-6.5L2.5 9l6.6-.7z"/></svg></div>
+          <div>
+            <h3 data-ar="نجوم دون إدمان" data-en="Stars, not addiction">نجوم دون إدمان</h3>
+            <p data-ar="تشجيع هادئ بعد كل درس — دون سلاسل يومية ولا منافسة ولا ضغط." data-en="Calm encouragement after each lesson — no daily streaks, no competition, no pressure.">تشجيع هادئ بعد كل درس — دون سلاسل يومية ولا منافسة ولا ضغط.</p>
+          </div>
+        </div>
+        <div class="feat">
+          <div class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="#1A5E8F" stroke-width="2"><path d="M4 19V5m0 14h16M8 15l3-4 3 2 4-6"/></svg></div>
+          <div>
+            <h3 data-ar="مسار واضح" data-en="A clear path">مسار واضح</h3>
+            <p data-ar="كل درس يفتح الذي يليه — يعرف طفلك خطوته التالية بنفسه." data-en="Each lesson unlocks the next — your child knows their next step on their own.">كل درس يفتح الذي يليه — يعرف طفلك خطوته التالية بنفسه.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="phone-wrap reveal">
+        <div class="phone" role="img" aria-label="Zolna app screen">
+          <div class="screen">
+            <span class="lesson-label" data-ar="الدرس ٣ · حرف الميم" data-en="Lesson 3 · The letter Meem">الدرس ٣ · حرف الميم</span>
+            <div class="big-letter">م</div>
+            <div class="word">محمد ﷺ</div>
+            <div class="stars">
+              <svg viewBox="0 0 24 24" fill="#EAA640"><path d="M12 2l2.9 6.3 6.6.7-4.9 4.6 1.3 6.5L12 16.9 6.1 20.1l1.3-6.5L2.5 9l6.6-.7z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#EAA640"><path d="M12 2l2.9 6.3 6.6.7-4.9 4.6 1.3 6.5L12 16.9 6.1 20.1l1.3-6.5L2.5 9l6.6-.7z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#E4D8BE"><path d="M12 2l2.9 6.3 6.6.7-4.9 4.6 1.3 6.5L12 16.9 6.1 20.1l1.3-6.5L2.5 9l6.6-.7z"/></svg>
+            </div>
+            <div class="mic-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#092B47" stroke-width="2.2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 19v3"/></svg>
+            </div>
+            <span class="hint" data-ar="اضغط مطوّلًا وقُل: مَ" data-en="Press and hold, then say: Ma">اضغط مطوّلًا وقُل: مَ</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SEERAH NIGHTS ============ -->
+<section class="wanasa" id="seerah">
+  <svg class="crescent" viewBox="0 0 80 80" aria-hidden="true">
+    <circle cx="42" cy="40" r="28" fill="#F2C879"/>
+    <circle cx="52" cy="36" r="26" fill="#141C33"/>
+  </svg>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow" data-ar="قصص ما قبل النوم" data-en="Bedtime stories">قصص ما قبل النوم</span>
+      <h2 data-ar="سيرة النبي ﷺ… حكاية كل ليلة" data-en="The Prophet&#8217;s ﷺ Seerah… a story every night">سيرة النبي ﷺ… حكاية كل ليلة</h2>
+      <p data-ar="كما كانت جدّاتنا تجمعنا تحت ضوء القمر، يروي تطبيق زولنا لطفلك موقفًا قصيرًا من السيرة كل ليلة — قصة قصيرة، وخُلق واحد، وقلب مطمئن." data-en="Just as our grandmothers gathered us under the moonlight, Zolna tells your child one short moment from the Seerah each night — a short story, one value, and a heart at peace.">كما كانت جدّاتنا تجمعنا تحت ضوء القمر، يروي تطبيق زولنا لطفلك موقفًا قصيرًا من السيرة كل ليلة — قصة قصيرة، وخُلق واحد، وقلب مطمئن.</p>
+    </div>
+    <div class="w-grid">
+      <div class="w-card reveal">
+        <div class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="#F2C879" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3 data-ar="الصادق الأمين" data-en="As-Sadiq Al-Amin">الصادق الأمين</h3>
+        <p data-ar="لُقِّب النبي ﷺ بالصادق الأمين — ويتعلّم طفلك قول الحقيقة حتى بعد الخطأ." data-en="The Prophet ﷺ was called the Truthful, the Trustworthy — and your child learns to tell the truth even after a mistake.">لُقِّب النبي ﷺ بالصادق الأمين — ويتعلّم طفلك قول الحقيقة حتى بعد الخطأ.</p>
+        <span class="echo" data-ar="يردد طفلك: «أنا أقول الصدق»" data-en="Your child repeats: &#8220;I tell the truth&#8221;">يردد طفلك: «أنا أقول الصدق»</span>
+      </div>
+      <div class="w-card reveal">
+        <div class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="#F2C879" stroke-width="2"><path d="M12 21s-7-4.6-9.5-9C.8 8.6 2.6 5 6 5c2.2 0 3.6 1.2 6 3.6C14.4 6.2 15.8 5 18 5c3.4 0 5.2 3.6 3.5 7-2.5 4.4-9.5 9-9.5 9z"/></svg></div>
+        <h3 data-ar="الرحمة" data-en="Mercy">الرحمة</h3>
+        <p data-ar="رحمة النبي ﷺ بالأطفال وبالحيوان — قصص تليّن قلب طفلك وتعلّمه الرفق." data-en="The Prophet&#8217;s ﷺ mercy toward children and animals — stories that soften your child&#8217;s heart and teach gentleness.">رحمة النبي ﷺ بالأطفال وبالحيوان — قصص تليّن قلب طفلك وتعلّمه الرفق.</p>
+        <span class="echo" data-ar="يردد طفلك: «أنا رحيم بالناس»" data-en="Your child repeats: &#8220;I am kind to people&#8221;">يردد طفلك: «أنا رحيم بالناس»</span>
+      </div>
+      <div class="w-card reveal">
+        <div class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="#F2C879" stroke-width="2"><path d="M8 13v-3a4 4 0 0 1 8 0v3M4 13h16l-1.5 7h-13z"/></svg></div>
+        <h3 data-ar="مساعدة الناس" data-en="Helping others">مساعدة الناس</h3>
+        <p data-ar="نمدّ أيدينا لمن يحتاج ونساعد في البيت — كما علّمنا نبيّنا ﷺ." data-en="We lend a hand to those in need and help at home — just as our Prophet ﷺ taught us.">نمدّ أيدينا لمن يحتاج ونساعد في البيت — كما علّمنا نبيّنا ﷺ.</p>
+        <span class="echo" data-ar="يردد طفلك: «أنا أساعد غيري»" data-en="Your child repeats: &#8220;I help others&#8221;">يردد طفلك: «أنا أساعد غيري»</span>
+      </div>
+      <div class="w-card reveal">
+        <div class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="#F2C879" stroke-width="2"><path d="M12 2a5 5 0 0 1 5 5c0 3-2 4-2 4h-6s-2-1-2-4a5 5 0 0 1 5-5zM7 15h10l1 7H6z"/></svg></div>
+        <h3 data-ar="احترام الكبير" data-en="Respecting elders">احترام الكبير</h3>
+        <p data-ar="للكبير حقّه وتقديره — أدب سوداني أصيل وسنّة نبوية في آن واحد." data-en="Elders deserve their due respect — authentic Sudanese manners and a Prophetic teaching at once.">للكبير حقّه وتقديره — أدب سوداني أصيل وسنّة نبوية في آن واحد.</p>
+        <span class="echo" data-ar="يردد طفلك: «أنا أحترم الكبير»" data-en="Your child repeats: &#8220;I respect my elders&#8221;">يردد طفلك: «أنا أحترم الكبير»</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ركن السودان ============ -->
+<section class="sudan" id="sudan">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow" data-ar="ركن السودان" data-en="Sudan corner">ركن السودان</span>
+      <h2 data-ar="يتعلّم طفلك لهجة أهله وثقافتهم" data-en="Your child learns their family&#8217;s dialect and culture">يتعلّم طفلك لهجة أهله وثقافتهم</h2>
+      <p data-ar="واجهة منصة زولنا بالعربية الفصحى، أما اللهجة السودانية فهي محتوى تعليمي بحد ذاته: كلمة، ومثل، وأدب — درسًا بعد درس." data-en="The Zolna platform&#8217;s interface is in Fusha Arabic, while the Sudanese dialect is learning content in its own right: a word, a proverb, and manners — lesson after lesson.">واجهة منصة زولنا بالعربية الفصحى، أما اللهجة السودانية فهي محتوى تعليمي بحد ذاته: كلمة، ومثل، وأدب — درسًا بعد درس.</p>
+    </div>
+    <div class="s-grid">
+      <div class="s-card reveal">
+        <span class="kind" data-ar="كلمة اليوم" data-en="Word of the day">كلمة اليوم</span>
+        <div class="big-word">«سَمِح»</div>
+        <p class="meaning" data-ar="معناها بالفصحى: جميل أو حَسَن. يستمع طفلك للكلمة، يرددها، ويستخدمها في جملة." data-en="In Fusha it means: beautiful or good. Your child listens to the word, repeats it, and uses it in a sentence.">معناها بالفصحى: <b>جميل</b> أو <b>حَسَن</b>. يستمع طفلك للكلمة، يرددها، ويستخدمها في جملة.</p>
+      </div>
+      <div class="s-card reveal">
+        <span class="kind" data-ar="مثل سوداني" data-en="Sudanese proverb">مثل سوداني</span>
+        <div class="big-word" data-ar="«الما عندو كبير، يشتري ليهو كبير»" data-en="&#8220;Whoever has no elder should get himself one&#8221;">«الما عندو كبير، يشتري ليهو كبير»</div>
+        <p class="meaning" data-ar="أي: من لم يكن له كبير يستشيره فليتّخذ لنفسه كبيرًا — في قيمة رأي الكبار وخبرتهم." data-en="Meaning: whoever has no elder to consult should seek one — on the value of elders&#8217; wisdom and experience.">أي: من لم يكن له كبير يستشيره فليتّخذ لنفسه كبيرًا — في قيمة <b>رأي الكبار وخبرتهم</b>.</p>
+      </div>
+      <div class="s-card reveal">
+        <span class="kind" data-ar="عادات وآداب" data-en="Customs &amp; manners">عادات وآداب</span>
+        <div class="big-word" data-ar="الكرم والضيافة" data-en="Generosity &amp; hospitality">الكرم والضيافة</div>
+        <p class="meaning" data-ar="التحية قبل الكلام، وإكرام الضيف، واحترام الكبير — سلوك سوداني أصيل يتدرّب عليه طفلك في مواقف قصيرة." data-en="Greeting before speaking, honoring the guest, respecting elders — authentic Sudanese conduct your child practices in short scenarios.">التحية قبل الكلام، وإكرام الضيف، واحترام الكبير — <b>سلوك سوداني أصيل</b> يتدرّب عليه طفلك في مواقف قصيرة.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PARENTS ============ -->
+<section class="parents" id="parents">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow" data-ar="أهلًا بالأهل" data-en="Welcome, parents">أهلًا بالأهل</span>
+      <h2 data-ar="أنتم أصحاب القرار — دائمًا" data-en="You stay in charge — always">أنتم أصحاب القرار — دائمًا</h2>
+      <p data-ar="زولنا مبني منذ اليوم الأول على خصوصية الطفل — لا كإضافة لاحقة." data-en="Zolna is built on child privacy from day one — not bolted on later.">زولنا مبني منذ اليوم الأول على خصوصية الطفل — لا كإضافة لاحقة.</p>
+    </div>
+    <div class="p-grid">
+      <div class="p-card reveal">
+        <div class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="#EAA640" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3 data-ar="لا صوت يُسجَّل إلا بإذنكم" data-en="No voice recorded without your permission">لا صوت يُسجَّل إلا بإذنكم</h3>
+        <p data-ar="موافقة أبوية موثّقة (VPC) قبل أي تسجيل لصوت الطفل، وفق متطلبات COPPA." data-en="Verifiable parental consent (VPC) before any recording of your child&#8217;s voice, per COPPA.">موافقة أبوية موثّقة (VPC) قبل أي تسجيل لصوت الطفل، وفق متطلبات COPPA.</p>
+      </div>
+      <div class="p-card reveal">
+        <div class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="#EAA640" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 9h6M7 13h10"/></svg></div>
+        <h3 data-ar="لوحة تحكّم للأهل" data-en="A parent dashboard">لوحة تحكّم للأهل</h3>
+        <p data-ar="ملف لكل طفل، وتقدّم واضح، وحذف كامل للبيانات متى شئتم." data-en="A profile per child, clear progress, and full data deletion whenever you choose.">ملف لكل طفل، وتقدّم واضح، وحذف كامل للبيانات متى شئتم.</p>
+      </div>
+      <div class="p-card reveal">
+        <div class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="#EAA640" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M6 6l12 12"/></svg></div>
+        <h3 data-ar="لا اجتماعي، ولا إعلانات" data-en="No social, no ads">لا اجتماعي، ولا إعلانات</h3>
+        <p data-ar="لا محادثات، ولا مشاركة، ولا قوائم منافسة، ولا أي إعلانات — نهائيًا." data-en="No chat, no sharing, no leaderboards, and no ads of any kind — ever.">لا محادثات، ولا مشاركة، ولا قوائم منافسة، ولا أي إعلانات — نهائيًا.</p>
+      </div>
+      <div class="p-card reveal">
+        <div class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="#EAA640" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <h3 data-ar="وقت الشاشة بأيديكم" data-en="Screen time in your hands">وقت الشاشة بأيديكم</h3>
+        <p data-ar="قفل مؤقت وحدود للجلسات تضبطونها من لوحة الأهل." data-en="A temporary lock and session limits you set from the parent dashboard.">قفل مؤقت وحدود للجلسات تضبطونها من لوحة الأهل.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="zigzag" aria-hidden="true"></div>
+
+<!-- ============ CLUB ============ -->
+<section class="club" id="club">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow" data-ar="نادي زولنا" data-en="Zolna Club">نادي زولنا</span>
+      <h2 data-ar="ابدأ مجانًا، وارتقِ متى شئت" data-en="Start free, upgrade whenever you like">ابدأ مجانًا، وارتقِ متى شئت</h2>
+      <p data-ar="اشتراك واحد يغطي الأسرة كلها — حتى ٤ أطفال." data-en="One membership covers the whole family — up to 4 children.">اشتراك واحد يغطي الأسرة كلها — حتى ٤ أطفال.</p>
+    </div>
+    <div class="plans">
+      <div class="plan reveal">
+        <h3 data-ar="مجاني" data-en="Free">مجاني</h3>
+        <div class="price">$0</div>
+        <div class="per" data-ar="للأبد" data-en="Forever">للأبد</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#1F7B5B" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg><span data-ar="الوحدة الأولى كاملة (٦ دروس)" data-en="The full first unit (6 lessons)">الوحدة الأولى كاملة (٦ دروس)</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#1F7B5B" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg><span data-ar="٣ حكايات سودانية" data-en="3 Sudanese tales">٣ حكايات سودانية</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#1F7B5B" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg><span data-ar="ملف طفل واحد" data-en="1 child profile">ملف طفل واحد</span></li>
+        </ul>
+        <a href="#app" class="btn btn-line" data-ar="ابدأ الآن" data-en="Start now">ابدأ الآن</a>
+      </div>
+
+      <div class="plan hot reveal">
+        <span class="badge" data-ar="خطة مقترحة" data-en="Proposed plan">خطة مقترحة</span>
+        <h3 data-ar="العائلي — شهري" data-en="Family — monthly">العائلي — شهري</h3>
+        <div class="price">$4.99</div>
+        <div class="per" data-ar="شهريًا · حتى ٤ أطفال" data-en="per month · up to 4 children">شهريًا · حتى ٤ أطفال</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#1F7B5B" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg><span data-ar="كل العوالم الأربعة مفتوحة" data-en="All four worlds unlocked">كل العوالم الأربعة مفتوحة</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#1F7B5B" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg><span data-ar="قصة سيرة جديدة كل أسبوع" data-en="A new Seerah story every week">قصة سيرة جديدة كل أسبوع</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#1F7B5B" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg><span data-ar="أنشطة للطباعة كل شهر (PDF)" data-en="Printable activities every month (PDF)">أنشطة للطباعة كل شهر (PDF)</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#1F7B5B" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg><span data-ar="٤ ملفات أطفال" data-en="4 child profiles">٤ ملفات أطفال</span></li>
+        </ul>
+        <a href="#" class="btn btn-gold" data-ar="اشترك الآن" data-en="Join now">اشترك الآن</a>
+      </div>
+
+      <div class="plan reveal">
+        <h3 data-ar="العائلي — سنوي" data-en="Family — yearly">العائلي — سنوي</h3>
+        <div class="price">$39</div>
+        <div class="per" data-ar="سنويًا — وفّر ٣٥٪" data-en="per year — save 35%">سنويًا — وفّر ٣٥٪</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#1F7B5B" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg><span data-ar="كل مزايا الاشتراك الشهري" data-en="Everything in monthly">كل مزايا الاشتراك الشهري</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#1F7B5B" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg><span data-ar="حزمة حكايات سودانية إضافية كل شهر" data-en="An extra Sudanese tales pack every month">حزمة حكايات سودانية إضافية كل شهر</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#1F7B5B" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg><span data-ar="خصم على متجر زولنا عند إطلاقه" data-en="A discount at the Zolna shop at launch">خصم على متجر زولنا عند إطلاقه</span></li>
+        </ul>
+        <a href="#" class="btn btn-line" data-ar="اشترك سنويًا" data-en="Join yearly">اشترك سنويًا</a>
+      </div>
+    </div>
+    <p class="pricing-note" data-ar="* الأسعار المعروضة نموذج أولي للتصميم." data-en="* Prices shown are design placeholders.">* الأسعار المعروضة نموذج أولي للتصميم.</p>
+  </div>
+</section>
+
+<!-- ============ SHOP ============ -->
+<section class="shop" id="shop">
+  <div class="wrap">
+    <div class="cols">
+      <div class="txt reveal">
+        <span class="soon" data-ar="قريبًا إن شاء الله" data-en="Coming soon, inshallah">قريبًا إن شاء الله</span>
+        <h2 data-ar="بطاقات زولنا للطباعة" data-en="Zolna printable cards">بطاقات زولنا للطباعة</h2>
+        <p data-ar="حزم بطاقات حروف وأنشطة بصيغة PDF — تطبعونها في البيت وتلعبونها مع طفلكم بعيدًا عن الشاشة. كل حزمة تفتح محتوى إضافيًا داخل التطبيق." data-en="Letter card and activity packs as PDFs — print them at home and play together, away from the screen. Each pack unlocks bonus content inside the app.">حزم بطاقات حروف وأنشطة بصيغة PDF — تطبعونها في البيت وتلعبونها مع طفلكم بعيدًا عن الشاشة. كل حزمة تفتح محتوى إضافيًا داخل التطبيق.</p>
+        <a href="#" class="btn btn-gold" data-ar="أخبروني عند الإطلاق" data-en="Tell me at launch">أخبروني عند الإطلاق</a>
+      </div>
+      <div class="card-stack reveal" aria-hidden="true">
+        <div class="fcard fc1"><span class="g">أ</span><span class="w">الله</span></div>
+        <div class="fcard fc2"><span class="g">م</span><span class="w">محمد ﷺ</span></div>
+        <div class="fcard fc3"><span class="g">ب</span><span class="w">بسم</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <a class="logo" href="#top">
+          <svg class="boat" viewBox="0 0 40 40" aria-hidden="true">
+            <path d="M20 3 L20 24" stroke="#F7F0DF" stroke-width="2.4" stroke-linecap="round"/>
+            <path d="M20 4 Q33 12 21 23 Z" fill="#EAA640"/>
+            <path d="M7 26 H33 L28 33 H12 Z" fill="#F7F0DF"/>
+            <path d="M5 36 Q12 33 20 36 T35 36" stroke="#1F7B5B" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+          </svg>
+          <span>زولنا</span>
+        </a>
+        <p data-ar="منصة زولنا: عالم آمن يتعلّم فيه طفلك العربية والقرآن وسيرة النبي ﷺ — بصوته." data-en="Zolna: a safe world where your child learns Arabic, Quran, and the Prophet&#8217;s ﷺ Seerah — with their own voice.">منصة زولنا: عالم آمن يتعلّم فيه طفلك العربية والقرآن وسيرة النبي ﷺ — بصوته.</p>
+      </div>
+      <div>
+        <h4 data-ar="زولنا" data-en="Zolna">زولنا</h4>
+        <ul>
+          <li><a href="#worlds" data-ar="العوالم" data-en="Worlds">العوالم</a></li>
+          <li><a href="#path" data-ar="مسار الدروس" data-en="Lesson path">مسار الدروس</a></li>
+          <li><a href="#seerah" data-ar="السيرة" data-en="Seerah">السيرة</a></li>
+          <li><a href="#sudan" data-ar="ركن السودان" data-en="Sudan corner">ركن السودان</a></li>
+          <li><a href="#club" data-ar="نادي زولنا" data-en="Zolna Club">نادي زولنا</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-ar="للأهل" data-en="For parents">للأهل</h4>
+        <ul>
+          <li><a href="#parents" data-ar="الخصوصية والأمان" data-en="Privacy &amp; safety">الخصوصية والأمان</a></li>
+          <li><a href="#" data-ar="سياسة الخصوصية" data-en="Privacy policy">سياسة الخصوصية</a></li>
+          <li><a href="#" data-ar="بيان COPPA" data-en="COPPA statement">بيان COPPA</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-ar="تواصلوا معنا" data-en="Contact us">تواصلوا معنا</h4>
+        <ul>
+          <li><a href="#" data-ar="واتساب" data-en="WhatsApp">واتساب</a></li>
+          <li><a href="#" data-ar="يوتيوب" data-en="YouTube">يوتيوب</a></li>
+          <li><a href="#" data-ar="إنستغرام" data-en="Instagram">إنستغرام</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyline" data-ar="© ٢٠٢٦ زولنا — صُنع بحب، من شيكاغو إلى الخرطوم" data-en="© 2026 Zolna — made with love, from Chicago to Khartoum">© ٢٠٢٦ زولنا — صُنع بحب، من شيكاغو إلى الخرطوم</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var lang = 'ar';
+  var btn = document.getElementById('langToggle');
+  var nodes = document.querySelectorAll('[data-ar]');
+
+  function apply(){
+    var isAr = lang === 'ar';
+    document.documentElement.lang = isAr ? 'ar' : 'en';
+    document.documentElement.dir  = isAr ? 'rtl' : 'ltr';
+    nodes.forEach(function(el){
+      el.textContent = isAr ? el.getAttribute('data-ar') : el.getAttribute('data-en');
+    });
+    btn.textContent = isAr ? 'EN' : 'ع';
+    document.title = isAr ? 'منصة زولنا — طفلك يتعلّم العربية بصوته'
+                          : 'Zolna — Arabic, Quran & Seerah for our children';
+  }
+  btn.addEventListener('click', function(){
+    lang = (lang === 'ar') ? 'en' : 'ar';
+    apply();
+  });
+
+  var reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:.12});
+    reveals.forEach(function(el){ io.observe(el); });
+  } else {
+    reveals.forEach(function(el){ el.classList.add('in'); });
+  }
+})();
+</script>
+</body>
+</html>
